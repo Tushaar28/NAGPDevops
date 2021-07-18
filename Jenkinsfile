@@ -1,8 +1,8 @@
 pipeline{
     agent any
     environment{
-        registry 'tushaar28/nagp_devops'
-        username 'tushaar28'
+        registry = 'tushaar28/nagp_devops'
+        username = 'tushaar28'
     }
     tools{
         maven 'Maven3'
