@@ -1,11 +1,13 @@
 pipeline{
-    agent{
-        docker{
-            image 'maven'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
+    agent any
+    
     stages{
+        stage("maven version and test){
+              steps{
+                  sh "mvn -version"
+                  sh "mvn clean test"
+              }
+        }
         stage('Sonar Quality check'){
             steps{
                 script{
