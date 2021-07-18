@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        registry 'tushaar28/NAGPDevops'
+        registry 'tushaar28/nagp_devops'
         username 'tushaar28'
     }
     tools{
