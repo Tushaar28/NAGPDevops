@@ -42,12 +42,11 @@ pipeline{
                 bat 'docker build -t i_${username}_master --no-cache -f Dockerfile .'
             }
         }
-        stage('Move image to Docker hub'){
+        stage('Login to docker and push'){
             steps{
-                script{
-                    withDockerRegistry([credentialsId: 'docker', url: '']){
-                        bat 'docker push ${registry}:devops'
-                    }
+                withCredentials([string(credentialsId: 'docker', variable: 'docker_password')]) {
+                    docker login -u tushaar28 -p $docker_password
+                    bat 'docker push ${registry}:devops'
                 }
             }
         }
