@@ -8,7 +8,7 @@ pipeline{
         maven 'Maven3'
     }
     stages{
-        stage('Clean'){
+        stage('Clean and test'){
             steps{
                 bat 'mvn clean test'
             }
