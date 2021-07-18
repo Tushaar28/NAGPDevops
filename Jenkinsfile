@@ -39,7 +39,7 @@ pipeline{
         }
         stage('Docker image'){
             steps{
-                bat 'docker build -t i_${username}_master --no-cache -f Dockerfile .'
+                bat 'docker build . -t ${registry}:latest'
             }
         }
         stage('Login to docker and push'){
