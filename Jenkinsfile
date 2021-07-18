@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     stages{
-        stage("maven version and test){
+        stage("maven version and test"){
               steps{
                   sh "mvn -version"
                   sh "mvn clean test"
