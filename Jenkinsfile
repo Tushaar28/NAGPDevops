@@ -4,6 +4,7 @@ pipeline{
         registry = 'tushaar28/nagp_devops'
         username = 'tushaar28'
         registryCredential = 'dockerhub'
+        dockerImage = ''
     }
     tools{
         maven 'Maven3'
@@ -38,16 +39,18 @@ pipeline{
                 bat 'mvn clean install'
             }
         }
-        stage('Docker image'){
+        stage('build Docker image'){
             steps{
-                bat 'docker build . -t tushaar28/nagp_devops:latest'
+                script{
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
         stage('Login to docker and push'){
             steps{
                 script{
                     docker.withRegistry('', registryCredential){
-                        bat 'docker push ${registry}:devops'
+                        dockerImage.push()
                     }
                 }
             }
