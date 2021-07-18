@@ -1,9 +1,8 @@
 pipeline{
-    agent{
-        docker{
-            image 'maven'
-            args '-v $HOME/.m2:/root/.m2'
-        }
+    agent any
+    environment{
+        registry 'tushaar28/NAGPDevops'
+        username 'tushaar28'
     }
     tools{
         maven 'Maven3'
