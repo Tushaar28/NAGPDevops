@@ -32,9 +32,28 @@ pipeline{
                 }
             }
         }
-        stage('Installing'){
+        stage('package'){
             steps{
-                bat 'mvn clean install'
+                bat 'mvn clean package'
+            }
+        }
+        stage('Docker image'){
+            steps{
+                bat 'docker build -t i_${username}_master --no-cache -f Dockerfile .'
+            }
+        }
+        stage('Move image to Docker hub'){
+            steps{
+                script{
+                    withDockerRegistry([credentialsId: 'docker', url: '']){
+                        bat 'docker push ${registry}:devops'
+                    }
+                }
+            }
+        }
+        stage('Docker deployment'){
+            steps{
+                bat 'docker run --name NAGPDevops -d -p 7100:80 ${registry}:devops'
             }
         }
     }
