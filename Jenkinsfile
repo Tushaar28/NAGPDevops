@@ -44,9 +44,11 @@ pipeline{
         }
         stage('Login to docker and push'){
             steps{
-                withCredentials([string(credentialsId: 'docker', variable: 'docker_password')]) {
-                    docker login -u tushaar28 -p $docker_password
-                    bat 'docker push ${registry}:devops'
+                script{
+                    withCredentials([string(credentialsId: 'docker', variable: 'docker_password')]) {
+                        docker login -u tushaar28 -p $docker_password
+                        bat 'docker push ${registry}:devops'
+                    }
                 }
             }
         }
