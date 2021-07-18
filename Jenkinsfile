@@ -39,7 +39,7 @@ pipeline{
         }
         stage('Docker image'){
             steps{
-                bat 'docker build . -t ${registry}:latest'
+                bat 'docker build . -t tushaar28/nagp_devops:latest'
             }
         }
         stage('Login to docker and push'){
