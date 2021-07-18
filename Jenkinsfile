@@ -32,9 +32,9 @@ pipeline{
                 }
             }
         }
-        stage('package'){
+        stage('install'){
             steps{
-                bat 'mvn clean package'
+                bat 'mvn clean install'
             }
         }
         stage('Docker image'){
