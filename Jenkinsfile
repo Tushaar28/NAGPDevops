@@ -11,16 +11,26 @@ pipeline{
         }
         stage('Sonar Quality check'){
             steps{
+                withSonarQubeEnv('sonarserver'){
+                    bat "mvn sonar:sonar"
+                }
+            }
+        }
+        stage('Quality gate'){
+            steps{
                 script{
-                    withSonarQubeEnv('sonarserver'){
-                        bat "mvn sonar:sonar"
-                        def qg = waitForQualityGate()
-                        if(qg.status != 'OK'){
-                        error "Quality check failure: ${qg.status}"
-                        }
-                        bat "mvn clean install"
+                    timeout(time: 1, unit: 'HOURS'){
+                            def qg = waitForQualityGate()
+                                if(qg.status != 'OK'){
+                                    error "Quality check failure: ${qg.status}"
+                                }
                     }
                 }
+            }
+        }
+        stage('Installing'){
+            steps{
+                bat 'mvn clean install'
             }
         }
     }
