@@ -1,7 +1,7 @@
 package com.tushaar.nagp.devops;
 
 import org.junit.Test;
-
+import static org.junit.Assert.assertNotEquals;
 import junit.framework.TestCase;
 
 public class AppTest extends TestCase 
