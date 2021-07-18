@@ -12,7 +12,7 @@ pipeline{
         stage('Sonar Quality check'){
             steps{
                 script{
-                    withSonarQubeEnv('sonarserver'){
+                    withSonarQubeEnv(credentialsId: 'sonarserver'){
                         bat "mvn sonar:sonar"
                     
                         timeout(time: 1, unit: 'HOURS'){
