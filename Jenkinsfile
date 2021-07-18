@@ -3,6 +3,7 @@ pipeline{
     environment{
         registry = 'tushaar28/nagp_devops'
         username = 'tushaar28'
+        registryCredential = 'dockerhub'
     }
     tools{
         maven 'Maven3'
@@ -45,8 +46,7 @@ pipeline{
         stage('Login to docker and push'){
             steps{
                 script{
-                    withCredentials([string(credentialsId: 'docker', variable: 'docker_password')]) {
-                        bat 'docker login -u tushaar28 -p $docker_password'
+                    docker.withRegistry('', registryCredential){
                         bat 'docker push ${registry}:devops'
                     }
                 }
