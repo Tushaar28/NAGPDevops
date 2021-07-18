@@ -57,7 +57,6 @@ pipeline{
         }
         stage('Docker deployment'){
             steps{
-                echo dockerImage
                 bat 'docker run -d -p 7100:80 $dockerImage'
             }
         }
