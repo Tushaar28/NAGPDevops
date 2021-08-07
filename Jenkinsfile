@@ -17,7 +17,7 @@ pipeline{
         }
         stage('Sonar Quality check'){
             steps{
-                withSonarQubeEnv('sonarserver'){
+                withSonarQubeEnv('Test_Sonar'){
                     bat "mvn sonar:sonar"
                 }
             }
