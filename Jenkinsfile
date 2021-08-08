@@ -19,7 +19,7 @@ pipeline{
         stage('Docker image'){
             steps{
                 script{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + "i-tushaartiwari-master:$BUILD_NUMBER"
                     dockerImageLatest = docker.build registry + ":latest"
                 }
             }
