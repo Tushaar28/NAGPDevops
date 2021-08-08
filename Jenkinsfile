@@ -23,19 +23,6 @@ pipeline{
                 }
             }
         }
-        stage('Quality gate'){
-            steps{
-                script{
-                    timeout(time: 1, unit: 'HOURS'){
-                            def qg = waitForQualityGate()
-                                if(qg.status != 'OK'){
-                                    error "Quality check failure: ${qg.status}"
-                                }
-                    }
-                }
-            }
-        }
-        
         stage('Docker image'){
             steps{
                 script{
