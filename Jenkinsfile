@@ -39,7 +39,7 @@ pipeline{
         stage('Docker image'){
             steps{
                 script{
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build registry + "i-tushaartiwari-develop:$BUILD_NUMBER"
                     dockerImageLatest = docker.build registry + ":latest"
                 }
             }
@@ -56,7 +56,7 @@ pipeline{
         }
         stage('Docker deployment'){
             steps{
-                bat 'docker run -d -p 8080:7300 tushaar28/nagp_devops:latest'
+                bat 'docker run --name c-tushaartiwari-develop -d -p 8080:7300 tushaar28/nagp_devops:latest'
             }
         }
     }
