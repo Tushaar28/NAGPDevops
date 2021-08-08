@@ -11,12 +11,12 @@ pipeline{
         maven 'Maven3'
     }
     stages{
-        stage('Clean and test'){
+        stage('Build'){
             steps{
-                bat 'mvn clean test'
+                bat 'mvn clean install'
             }
         }
-        stage('Sonar Quality check'){
+        stage('Sonar Analysis'){
             steps{
                 withSonarQubeEnv('Test_Sonar'){
                     bat "mvn sonar:sonar"
@@ -35,12 +35,8 @@ pipeline{
                 }
             }
         }
-        stage('install'){
-            steps{
-                bat 'mvn clean install'
-            }
-        }
-        stage('build Docker image'){
+        
+        stage('Docker image'){
             steps{
                 script{
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
