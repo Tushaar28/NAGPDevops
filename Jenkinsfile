@@ -40,7 +40,7 @@ pipeline{
             steps{
                 script{
                     dockerImage = docker.build registry + "i-tushaartiwari-develop:$BUILD_NUMBER"
-                    dockerImageLatest = docker.build registry + ":latest"
+                    dockerImageLatest = docker.build registry + "i-tushaartiwari-develop:latest"
                 }
             }
         }
