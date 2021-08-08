@@ -60,7 +60,7 @@ pipeline{
         }
         stage('Docker deployment'){
             steps{
-                bat 'docker run -d -p 7100:80 ${registry}:${BUILD_NUMBER}'
+                bat 'docker run -d -p 7100:80 ${registry}:latest'
             }
         }
     }
