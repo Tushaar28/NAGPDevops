@@ -16,13 +16,6 @@ pipeline{
                 bat 'mvn clean install'
             }
         }
-        stage('Sonar Analysis'){
-            steps{
-                withSonarQubeEnv('Test_Sonar'){
-                    bat "mvn sonar:sonar"
-                }
-            }
-        }
         stage('Docker image'){
             steps{
                 script{
