@@ -60,7 +60,7 @@ pipeline{
         }
         stage('Docker deployment'){
             steps{
-                bat 'docker run -d -p 7300:8080 tushaar28/nagp_devops:latest'
+                bat 'docker run -d -p 8080:7300 tushaar28/nagp_devops:latest'
             }
         }
     }
