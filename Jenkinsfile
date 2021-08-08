@@ -56,7 +56,7 @@ pipeline{
         }
         stage('Docker deployment'){
             steps{
-                bat 'docker run --name c-tushaartiwari-develop -d -p 8080:7300 tushaar28/nagp_devops:latest'
+                bat 'docker run --name c-tushaartiwari-develop -d -p 8080:7300 tushaar28/nagp_devopsi-tushaartiwari-develop:latest'
             }
         }
     }
