@@ -16,12 +16,26 @@ pipeline{
                 bat 'mvn clean install'
             }
         }
-        
-        stage('Unit Testing'){
+        stage('Sonar Analysis'){
             steps{
-                bat 'mvn clean test'
+                withSonarQubeEnv('Test_Sonar'){
+                    bat "mvn sonar:sonar"
+                }
             }
         }
+        stage('Quality gate'){
+            steps{
+                script{
+                    timeout(time: 1, unit: 'HOURS'){
+                            def qg = waitForQualityGate()
+                                if(qg.status != 'OK'){
+                                    error "Quality check failure: ${qg.status}"
+                                }
+                    }
+                }
+            }
+        }
+        
         stage('Docker image'){
             steps{
                 script{
@@ -42,7 +56,7 @@ pipeline{
         }
         stage('Docker deployment'){
             steps{
-                bat 'docker run -d -p 8080:7200 tushaar28/nagp_devops:latest'
+                bat 'docker run -d -p 8080:7300 tushaar28/nagp_devops:latest'
             }
         }
     }
