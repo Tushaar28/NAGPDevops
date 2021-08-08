@@ -11,36 +11,18 @@ pipeline{
         maven 'Maven3'
     }
     stages{
-        stage('Clean and test'){
-            steps{
-                bat 'mvn clean test'
-            }
-        }
-        stage('Sonar Quality check'){
-            steps{
-                withSonarQubeEnv('Test_Sonar'){
-                    bat "mvn sonar:sonar"
-                }
-            }
-        }
-        stage('Quality gate'){
-            steps{
-                script{
-                    timeout(time: 1, unit: 'HOURS'){
-                            def qg = waitForQualityGate()
-                                if(qg.status != 'OK'){
-                                    error "Quality check failure: ${qg.status}"
-                                }
-                    }
-                }
-            }
-        }
-        stage('install'){
+        stage('Build'){
             steps{
                 bat 'mvn clean install'
             }
         }
-        stage('build Docker image'){
+        
+        stage('Unit Testing'){
+            steps{
+                bat 'mvn clean test'
+            }
+        }
+        stage('Docker image'){
             steps{
                 script{
                     dockerImage = docker.build registry + ":$BUILD_NUMBER"
